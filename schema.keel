@@ -1,0 +1,22 @@
+model Todo {
+    fields {
+        label Text
+        isDone Boolean @default(false)
+        doneAt Timestamp?
+        owner Identity
+    }
+
+    operations {
+        list getAllTodos()
+        create addTodo() with (label) {
+            @set(todo.owner = ctx.identity)
+        }
+        delete removeTodo(id)
+    }
+}
+
+api Web {
+    models {
+        Todo
+    }
+}
