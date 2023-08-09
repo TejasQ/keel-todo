@@ -7,14 +7,17 @@ model Todo {
     }
 
     operations {
-        list getAllTodos() {
-            @permission(expression: ctx.isAuthenticated)
-        }
+        list getAllTodos()
         create addTodo() with (label) {
             @set(todo.owner = ctx.identity)
         }
         delete removeTodo(id)
     }
+
+    @permission(
+        actions: [list, create],
+        expression: ctx.isAuthenticated
+    )
 }
 
 api Web {
