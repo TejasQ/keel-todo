@@ -7,7 +7,9 @@ model Todo {
     }
 
     operations {
-        list getAllTodos()
+        list getAllTodos() {
+            @where(todo.owner == ctx.identity)
+        }
         create addTodo() with (label) {
             @set(todo.owner = ctx.identity)
         }
