@@ -7,7 +7,9 @@ model Todo {
     }
 
     operations {
-        list getAllTodos()
+        list getAllTodos() {
+            @permission(expression: ctx.isAuthenticated)
+        }
         create addTodo() with (label) {
             @set(todo.owner = ctx.identity)
         }
